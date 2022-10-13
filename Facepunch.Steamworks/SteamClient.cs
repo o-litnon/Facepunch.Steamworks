@@ -16,22 +16,23 @@ namespace Steamworks
 		/// Initialize the steam client.
 		/// If <paramref name="asyncCallbacks"/> is false you need to call <see cref="RunCallbacks"/> manually every frame.
 		/// </summary>
-		public static void Init( uint appid, bool asyncCallbacks = true )
+		public static void Init( AppId? appid = null, bool asyncCallbacks = true )
 		{
 			if ( initialized )
 				throw new System.Exception( "Calling SteamClient.Init but is already initialized" );
-
-			System.Environment.SetEnvironmentVariable( "SteamAppId", appid.ToString() );
-			System.Environment.SetEnvironmentVariable( "SteamGameId", appid.ToString() );
 
 			if ( !SteamAPI.Init() )
 			{
 				throw new System.Exception( "SteamApi_Init returned false. Steam isn't running, couldn't find Steam, App ID is ureleased, Don't own App ID." );
 			}
 
-			AppId = appid;
+			AddInterface<SteamUtils>();
 
+			AppId = appid ?? SteamUtils.GetAppID();
 			initialized = true;
+
+			System.Environment.SetEnvironmentVariable( "SteamAppId", AppId.ToString() );
+			System.Environment.SetEnvironmentVariable( "SteamGameId", AppId.ToString() );
 
 			//
 			// Dispatch is responsible for pumping the
@@ -57,7 +58,6 @@ namespace Steamworks
 			AddInterface<SteamUGC>();
 			AddInterface<SteamUser>();
 			AddInterface<SteamUserStats>();
-			AddInterface<SteamUtils>();
 			AddInterface<SteamVideo>();
 			AddInterface<SteamRemotePlay>();
 

@@ -117,7 +117,7 @@ namespace Steamworks
 
 			var size = i.Width * i.Height * 4;
 
-			var buf = Helpers.TakeBuffer( (int) size );
+			var buf = Helpers.TakeBuffer( (int)size );
 
 			if ( !Internal.GetImageRGBA( image, buf, (int)size ) )
 				return null;
@@ -255,7 +255,7 @@ namespace Steamworks
 		public static bool VrHeadsetStreaming
 		{
 			get => Internal.IsVRHeadsetStreamingEnabled();
-			
+
 			set
 			{
 				Internal.SetVRHeadsetStreamingEnabled( value );
