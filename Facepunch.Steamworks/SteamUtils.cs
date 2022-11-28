@@ -84,6 +84,12 @@ namespace Steamworks
 		/// </summary>
 		public static string IpCountry => Internal.GetIPCountry();
 
+
+		public static AppId GetAppID()
+		{
+			return Internal.GetAppID();
+		}
+
 		/// <summary>
 		/// Returns true if the image exists, and the buffer was successfully filled out.
 		/// Results are returned in RGBA format.

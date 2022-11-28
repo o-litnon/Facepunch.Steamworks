@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
@@ -72,17 +73,20 @@ namespace Steamworks
 			}
 		}
 
-		internal static void AddInterface<T>() where T : SteamClass, new()
+		public static void AddInterface<T>() where T : SteamClass, new()
 		{
-			var t = new T();
-			bool valid = t.InitializeInterface( false );
-			if ( valid )
+			if ( openInterfaces.All( d => d is not T ) )
 			{
-				openInterfaces.Add( t );
-			}
-			else
-			{
-				t.DestroyInterface( false );
+				var t = new T();
+				bool valid = t.InitializeInterface( false );
+				if ( valid )
+				{
+					openInterfaces.Add( t );
+				}
+				else
+				{
+					t.DestroyInterface( false );
+				}
 			}
 		}
 
