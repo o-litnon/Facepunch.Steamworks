@@ -7,7 +7,7 @@ using Steamworks.Data;
 
 namespace Steamworks
 {
-	internal static class SteamAPI
+	public static class SteamAPI
 	{
 		internal static class Native
 		{
@@ -26,7 +26,7 @@ namespace Steamworks
 			public static extern bool SteamAPI_RestartAppIfNecessary( uint unOwnAppID );
 			
 		}
-		static internal bool Init()
+		static public bool Init()
 		{
 			return Native.SteamAPI_Init();
 		}
